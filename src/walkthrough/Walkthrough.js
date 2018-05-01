@@ -5,9 +5,7 @@ import {View, StyleSheet, SafeAreaView, StatusBar, Platform} from "react-native"
 import Swiper from "react-native-swiper";
 
 import Slide from "./Slide";
-import Connect from "./Connect";
-import Chat from "./Chat";
-import Share from "./Share";
+import SystemWalkThrough from "./System";
 
 import {Button, Theme} from "../components";
 import type {ScreenProps} from "../components/Types";
@@ -39,7 +37,7 @@ export default class Walkthrough extends React.Component<ScreenProps<>> {
         return (
             <SafeAreaView style={styles.footer}>
                 <Button label="Back" onPress={back} disabled={isFirst} />
-                <Button label={isLast ? "Start" : "Next"} onPress={next} primary={true} transparent={true} />
+                <Button style={styles.startButton} label={isLast ? "Start" : "Next"} onPress={next} primary={true}  />
             </SafeAreaView>
         );
     }
@@ -68,31 +66,15 @@ export default class Walkthrough extends React.Component<ScreenProps<>> {
 
 /*
 */
-let connect: Connect;
-let chat: Chat;
-let share: Share;
+//let systemWalkThrough: SystemWalkThrough;
 
 const slides = [
     {
-        title: "Connect",
-        description: "Bring your friends closer by building a network of the people you love.",
-        icon: <Connect ref={ref => ref ? connect = ref : undefined} />,
-        show: () => connect.show(),
-        hide: () => connect.hide()
-    },
-    {
-        title: "Chat",
-        description: "Send messages and stay up to date with friends whenever you need to.",
-        icon: <Chat ref={ref => ref ? chat = ref : undefined} />,
-        show: () => chat.show(),
-        hide: () => chat.hide()
-    },
-    {
-        title: "Share",
-        description: "Send your best selfies and show friends what you’re up to.",
-        icon: <Share ref={ref => ref ? share = ref : undefined} />,
-        show: () => share.show(),
-        hide: () => share.hide()
+        title: "Create your first system",
+        description: "Filters help you to quickly filter runners from a race meeting based on your selected variables. You can define up to 5 variables in a Filter.",
+        icon: <SystemWalkThrough />,
+        //show: () => systemWalkThrough.show(),
+        //hide: () => systemWalkThrough.hide()
     }
 ];
 const styles = StyleSheet.create({
@@ -103,5 +85,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         marginHorizontal: Theme.spacing.base
+    },
+    startButton: {
+        backgroundColor: '#8f2e28'
     }
 });

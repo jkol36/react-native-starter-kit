@@ -1,0 +1,1 @@
+export {default as TipsFeed} from './TipsFeed'

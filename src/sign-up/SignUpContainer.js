@@ -18,6 +18,10 @@ type SignUpContainerProps = NavigationProps<*> & {
 
 export default class SignUpContainer extends React.Component<SignUpContainerProps> {
 
+    componentWillMount() {
+        console.log('SignUpContainer mounting')
+    }
+
     static defaultProps = {
         nextLabel: "Next"
     };
@@ -39,7 +43,7 @@ export default class SignUpContainer extends React.Component<SignUpContainerProp
                         </View>
                         <View>{children}</View>
                         <View>
-                            <Button label={nextLabel} full={true} primary={true} onPress={next} {...{loading}} />
+                            <Button label={nextLabel} style={styles.nextButton} full={true} primary={true} onPress={next} {...{loading}} />
                             <Button label="Back" full={true} onPress={this.back} />
                         </View>
                     </View>
@@ -57,5 +61,8 @@ const styles = StyleSheet.create({
     innerContainer: {
         height: height - Theme.spacing.base * 2,
         justifyContent: "center"
+    },
+    nextButton: {
+        backgroundColor: '#8f2e28'
     }
 });

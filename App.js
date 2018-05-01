@@ -15,8 +15,10 @@ import {Welcome} from "./src/welcome";
 import {Walkthrough} from "./src/walkthrough";
 import {SignUpName, SignUpEmail, SignUpPassword, Login} from "./src/sign-up";
 import {
-    Profile, Explore, Share, SharePicture, HomeTab, Comments, Settings, ProfileStore
+    Profile, Explore, Share, SharePicture, HomeTab, Comments, Settings, ProfileStore,
+    MySystems, FormGenius, More, PublicSystems, TipsFeed
 } from "./src/home";
+
 
 import getTheme from "./native-base-theme/components";
 import variables from "./native-base-theme/variables/commonColor";
@@ -46,15 +48,23 @@ console.ignoredYellowBox = [
     "Setting a timer"
 ];
 
-export default class App extends React.Component<{}, AppState> {
-
-    state: AppState = {
+const createAppState = () => {
+    return process.env.NODE_ENV === 'PRODUCTION' ? {
         staticAssetsLoaded: false,
         authStatusReported: false,
         isUserAuthenticated: false
-    };
+    }: {
+        staticAssetsLoaded: false,
+        authStatusReported: true,
+        isUserAuthenticated: true
+    }
+}
+export default class App extends React.Component<{}, AppState> {
+
+    state: AppState = createAppState()
 
     componentWillMount() {
+        console.log('app.js mounting')
         StatusBar.setBarStyle("dark-content");
         if (Platform.OS === "android") {
             StatusBar.setBackgroundColor("white");
@@ -70,6 +80,7 @@ export default class App extends React.Component<{}, AppState> {
     }
 
     async loadStaticResources(): Promise<void> {
+        console.log('loading static resources')
         try {
             const images = Images.downloadAsync();
             const fonts = Font.loadAsync({
@@ -91,19 +102,21 @@ export default class App extends React.Component<{}, AppState> {
     render(): React.Node {
         const {onNavigationStateChange} = this;
         const {staticAssetsLoaded, authStatusReported, isUserAuthenticated} = this.state;
-        let feedStore, profileStore, userFeedStore;
-        if (isUserAuthenticated) {
+        if (isUserAuthenticated && !process.env.NODE_ENV === 'DEV') {
+
             const {uid} = Firebase.auth.currentUser;
-            const feedQuery = Firebase.firestore
-                .collection("feed")
-                .orderBy("timestamp", "desc");
-            const userFeedQuery = Firebase.firestore
-                .collection("feed")
+            const mySystemQuery = Firebase.firestore
+                .collection("mySystems")
                 .where("uid", "==", uid)
-                .orderBy("timestamp", "desc");
+            console.log('app.js running')
             profileStore = new ProfileStore();
-            feedStore = new FeedStore(feedQuery);
-            userFeedStore = new FeedStore(userFeedQuery);
+            //feedStore = new FeedStore(feedQuery);
+            //userFeedStore = new FeedStore(userFeedQuery);
+        }
+        else {
+            const uid = 'test123'
+            const mySystemQuery = {}
+            profileStore = {}
         }
         return <StyleProvider style={getTheme(variables)}>
             {
@@ -112,7 +125,7 @@ export default class App extends React.Component<{}, AppState> {
                         isUserAuthenticated
                             ?
                                 (
-                                    <Provider {...{feedStore, profileStore, userFeedStore}} >
+                                    <Provider {...{profileStore}} >
                                         <Home {...{onNavigationStateChange}} />
                                     </Provider>
                                 )
@@ -155,9 +168,12 @@ const ShareNavigator = StackNavigator({
 }, StackNavigatorOptions);
 
 const HomeTabs = TabNavigator({
-    Explore: { screen: ExploreNavigator },
-    Share: { screen: ShareNavigator },
-    Profile: { screen: ProfileNavigator }
+    //Profile: { screen: ProfileNavigator },
+    MySystems: {screen: MySystems},
+    TipsFeed: {screen: TipsFeed},
+    FormGenius: {screen: FormGenius},
+    PublicSystems: {screen: PublicSystems},
+    More: {screen:More}
 }, {
     animationEnabled: false,
     tabBarComponent: HomeTab,
@@ -168,7 +184,7 @@ const HomeTabs = TabNavigator({
 const Home = StackNavigator({
     Walkthrough: { screen: Walkthrough },
     Home: { screen: HomeTabs }
-}, StackNavigatorOptions);
+});
 
 const AppNavigator = StackNavigator({
     Welcome: { screen: Welcome },

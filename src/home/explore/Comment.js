@@ -12,6 +12,10 @@ type CommentProps = {
 
 export default class CommentComp extends React.Component<CommentProps> {
 
+    componentWillMount() {
+        console.log('comment component mounting')
+    }
+
     render(): React.Node {
         const {text} = this.props.comment;
         const {picture, name} = this.props.profile;

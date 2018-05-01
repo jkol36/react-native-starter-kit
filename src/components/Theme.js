@@ -63,7 +63,7 @@ const theme: Theme = {
         header1: {
             fontSize: 48,
             lineHeight: 58,
-            fontFamily: "SFProText-Heavy"
+            fontFamily: "SFProText-Heavy",
         },
         header2: {
             fontSize: 36,
@@ -82,12 +82,14 @@ const theme: Theme = {
         },
         regular: {
             fontSize: 14,
+
             lineHeight: 21,
             fontFamily: "SFProText-Medium"
         },
         small: {
             fontSize: 14,
             lineHeight: 18,
+            fontWeight:'bold',
             fontFamily: "SFProText-Regular"
         },
         micro: {

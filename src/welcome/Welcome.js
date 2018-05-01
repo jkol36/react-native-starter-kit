@@ -7,7 +7,9 @@ import {Text, Button, Container, Logo, Theme, AnimatedView} from "../components"
 import type {ScreenProps} from "../components/Types";
 
 export default class Welcome extends React.Component<ScreenProps<>> {
-
+    componentWillMount() {
+        console.log('Welcome component mounting')
+    }
     @autobind
     signUp() {
         this.props.navigation.navigate("SignUp");
@@ -20,6 +22,7 @@ export default class Welcome extends React.Component<ScreenProps<>> {
 
     @autobind
     framer() {
+        console.log('framing called')
         Linking.openURL("https://framer.com/fiber");
     }
 
@@ -28,14 +31,16 @@ export default class Welcome extends React.Component<ScreenProps<>> {
             <Container gutter={2} style={styles.root}>
                 <Logo />
                 <AnimatedView style={styles.container}>
-                    <Text type="header1" style={styles.header}>Fiber</Text>
+                    <Text type="header1" style={styles.header}>RacePal</Text>
+                </AnimatedView>
+                <AnimatedView style={styles.container}>
+                    <Text type="header3" style={styles.subHeader}>Your Market Edge</Text>
                 </AnimatedView>
                 <AnimatedView style={styles.container} delay={600} duration={300}>
-                    <Button label="Login" full={true} primary={true} onPress={this.login} />
+                    <Button label="Login" style={styles.loginButton} full={true} primary={true} onPress={this.login} />
                     <Button label="Sign Up" full={true} onPress={this.signUp} />
                 </AnimatedView>
                 <TouchableOpacity style={styles.framer} onPress={this.framer}>
-                    <Text style={styles.framerText}>Designed by Framer</Text>
                 </TouchableOpacity>
             </Container>
         );
@@ -56,13 +61,14 @@ const styles = StyleSheet.create({
         marginTop: Theme.spacing.base * 2,
         marginBottom: Theme.spacing.base * 2
     },
-    framer: {
-        position: "absolute",
-        bottom: Theme.spacing.tiny,
-        width
+    subHeader: {
+        textAlign:"center",
+        marginTop: Theme.spacing.base,
+        marginBottom: Theme.spacing.base * 2,
+        color: '#8f2e28'
+
     },
-    framerText: {
-        textAlign: "center",
-        fontSize: 12
-    }
+   loginButton: {
+    backgroundColor: '#8f2e28'
+   }
 });

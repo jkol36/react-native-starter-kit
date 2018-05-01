@@ -22,6 +22,9 @@ export {default as ImageUpload} from "./ImageUpload";
 export {default as Feed} from "./Feed";
 export {default as FeedStore} from "./FeedStore";
 export {default as SpinningIndicator} from "./SpinningIndicator";
+export {default as Header} from './Header'
+export {default as SwipeCards} from './SwipeCards'
+export {default as PlaceTradeComponent } from './PlacetradeComponent'
 
 export const serializeException = (e: string | {}): string => {
     if (typeof e === "string") {

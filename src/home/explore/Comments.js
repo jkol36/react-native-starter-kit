@@ -20,6 +20,7 @@ export default class CommentsComp extends React.Component<ScreenParams<{ post: s
     commentsStore: CommentsStore;
 
     async componentWillMount(): Promise<void> {
+        console.log('comments mounting')
         const {post} = this.props.navigation.state.params;
         this.commentsStore = new CommentsStore(post);
     }

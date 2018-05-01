@@ -31,6 +31,7 @@ export default class Explore extends React.Component<ScreenProps<> & InjectedPro
     }
 
     async componentWillMount(): Promise<void> {
+        console.log('explore view mounting')
         this.props.feedStore.checkForNewEntriesInFeed();
         this.setState({
             scrollAnimation: new Animated.Value(0)

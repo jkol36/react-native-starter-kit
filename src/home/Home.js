@@ -1,7 +1,8 @@
 // @flow
 import * as React from "react";
-import {StyleSheet, TouchableWithoutFeedback, SafeAreaView, View} from "react-native";
-import { Feather as Icon } from "@expo/vector-icons";
+import {StyleSheet, Text, TouchableWithoutFeedback, SafeAreaView, View} from "react-native";
+//import { Icon } from 'react-native-elements'
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 
 import {Theme} from "../components";
 
@@ -11,10 +12,16 @@ type Tab = { label: string, icon: string };
 
 export class HomeTab extends React.Component<NavigationProps<*>> {
 
+    componentWillMount() {
+        console.log('hometab mounting')
+    }
+
     static tabs: Tab[] = [
-        { label: "Explore", icon: "home" },
-        { label: "Share", icon: "camera" },
-        { label: "Profile", icon: "user" }
+        { label: "My Systems", routeName:'MySystems', icon: "star" },
+        { label: "Tips Feed", routeName:'TipsFeed', icon: "star" },
+        { label: "Form Genius", routeName:'FormGenius', icon: "lightbulb-on" },
+        { label: "Public Systems", routeName:'PublicSystems', icon: "target" },
+        { label: "More", routeName:'More', icon:'dots-horizontal'}
     ];
 
     render(): React.Node {
@@ -30,10 +37,11 @@ export class HomeTab extends React.Component<NavigationProps<*>> {
                         return (
                             <TouchableWithoutFeedback
                                 key={info.label}
-                                onPress={() => i !== currentIndex ? this.props.navigation.navigate(info.label) : null}
+                                onPress={() => i !== currentIndex ? this.props.navigation.navigate(info.routeName) : null}
                             >
                                 <View style={styles.tab}>
-                                    <Icon name={info.icon} size={25} {...{ color }} />
+                                    <Icon name={info.icon} type={info.type} size={25} {...{ color }} />
+                                    <Text> {info.label} </Text>
                                 </View>
                             </TouchableWithoutFeedback>
                         );

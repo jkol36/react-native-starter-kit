@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: Theme.spacing.base * 2,
         paddingBottom: Theme.spacing.base * 2,
         paddingTop: Theme.spacing.base * 2 + Constants.statusBarHeight,
-        flexGrow: 1
+        flexGrow: 1,
+        backgroundColor: '#99342e'
     },
     title: {
         color: "white"

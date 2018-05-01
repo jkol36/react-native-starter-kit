@@ -23,6 +23,7 @@ export default class Share extends React.Component<ScreenProps<>, ShareState> {
     camera: Camera;
 
     async componentWillMount(): Promise<void> {
+        console.log('share view mounting')
         this.setState({ hasCameraPermission: null, loading: false });
         const {status} = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({

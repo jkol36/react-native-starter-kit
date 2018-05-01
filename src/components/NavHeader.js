@@ -17,6 +17,9 @@ type NavHeaderProps = NavigationProps<*> & {
 
 export default class NavHeader extends React.Component<NavHeaderProps> {
 
+    componentWillMount() {
+        console.log('nav header mounting')
+    }
     @autobind
     onPress() {
         const {backFn, navigation} = this.props;
@@ -58,6 +61,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         borderColor: Theme.palette.borderColor,
         borderBottomWidth: Platform.OS === "ios" ? 0 : 1,
+        backgroundColor: 'red',
         zIndex: 10000
     },
     content: {

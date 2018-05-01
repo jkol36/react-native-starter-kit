@@ -16,6 +16,10 @@ type LoginState = {
 
 export default class Login extends React.Component<NavigationProps<*>, LoginState> {
 
+    componentWillMount() {
+        console.log('login mounting')
+    }
+
     state: LoginState = {
         email: "",
         password: "",

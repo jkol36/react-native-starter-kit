@@ -18,6 +18,7 @@ type PasswordState = {
 export default class Password extends React.Component<NavigationProps<*>, PasswordState> {
 
     componentWillMount() {
+        console.log('password mounting')
         this.setState({ password: "" });
     }
 
